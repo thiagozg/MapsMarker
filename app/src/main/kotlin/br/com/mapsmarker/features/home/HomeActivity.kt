@@ -17,7 +17,7 @@ import br.com.mapsmarker.features.Constants.KEY_PLACE
 import br.com.mapsmarker.features.Constants.STATUS_API_OK
 import br.com.mapsmarker.features.Constants.STATUS_API_OVER_QUERY_LIMIT
 import br.com.mapsmarker.features.map.MapsActivity
-import br.com.mapsmarker.model.api.ApiResponse
+import br.com.mapsmarker.model.api.StateResponse
 import br.com.mapsmarker.model.api.StatusEnum
 import br.com.mapsmarker.model.domain.ResultVO
 import br.com.mapsmarker.model.domain.SearchResponseVO
@@ -45,18 +45,18 @@ class HomeActivity(override val layoutResId: Int = R.layout.activity_home) :
     }
 
     private fun observeSearchResponse() {
-        viewModel.getResponse().observe(this, Observer<ApiResponse<SearchResponseVO>> {
+        viewModel.getResponse().observe(this, Observer<StateResponse<SearchResponseVO>> {
             response -> response?.let {
-                if (adapter == null) setupRecyclerView()
                 processResponse(it)
             }
         })
     }
 
-    private fun processResponse(response: ApiResponse<*>) {
+    private fun processResponse(response: StateResponse<*>) {
         when (response.status) {
             StatusEnum.SUCCESS -> {
                 if (response.data is SearchResponseVO) {
+                    if (adapter == null) setupRecyclerView()
                     when (response.data.status) {
                         STATUS_API_OK -> adapter?.refreshLocationList(response.data.results)
                         STATUS_API_OVER_QUERY_LIMIT ->
@@ -94,7 +94,7 @@ class HomeActivity(override val layoutResId: Int = R.layout.activity_home) :
 
             override fun onMenuItemActionCollapse(menuItem: MenuItem): Boolean {
                 this@HomeActivity.closeKeyboard()
-                processResponse(ApiResponse(StatusEnum.LOADING, data = null, isLoading = false))
+                processResponse(StateResponse(StatusEnum.LOADING, data = null, isLoading = false))
                 return true
             }
         })
