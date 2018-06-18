@@ -1,0 +1,97 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+apply from: '../dependencies-versions.gradle'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "br.com.mapsmarker"
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+    }
+
+    kapt {
+        mapDiagnosticLocations = true
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
+    implementation "androidx.core:core-ktx:$versions.ktx"
+
+    implementation "com.android.support:support-compat:$versions.androidSupport"
+    implementation "com.android.support:support-v4:$versions.androidSupport"
+    implementation "com.android.support:appcompat-v7:$versions.androidSupport"
+    implementation "com.android.support:recyclerview-v7:$versions.androidSupport"
+    implementation "com.android.support:design:$versions.androidSupport"
+//    implementation "com.android.support.constraint:constraint-layout:$versions.constraintLayout"
+    implementation "com.google.android.gms:play-services-maps:$versions.playServicesMaps"
+
+    implementation "android.arch.lifecycle:viewmodel:$versions.architecture"
+    implementation "android.arch.lifecycle:livedata:$versions.architecture"
+    kapt "android.arch.lifecycle:compiler:$versions.architecture"
+    implementation "android.arch.lifecycle:extensions:$versions.architecture"
+    implementation "android.arch.lifecycle:reactivestreams:$versions.architecture"
+    implementation "android.arch.core:core-testing:$versions.architecture"
+    implementation "android.arch.persistence.room:runtime:$versions.room"
+    kapt "android.arch.persistence.room:compiler:$versions.room"
+
+    implementation "com.google.dagger:dagger:$versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+    implementation "com.google.dagger:dagger-android:$versions.dagger"
+    implementation "com.google.dagger:dagger-android-support:$versions.dagger"
+    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+
+    implementation "com.squareup.okhttp3:okhttp:$versions.okHttp"
+    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okHttp"
+
+    implementation "com.squareup.retrofit2:retrofit:$versions.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.retrofit"
+    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+    implementation "com.squareup.retrofit2:converter-scalars:$versions.retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.rxRetrofitAdapter"
+
+    implementation "io.reactivex.rxjava2:rxandroid:$versions.rxAndroid"
+    implementation "io.reactivex.rxjava2:rxjava:$versions.rxJava"
+
+    implementation "org.parceler:parceler-api:$versions.parceler"
+    kapt "org.parceler:parceler:$versions.parceler"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}

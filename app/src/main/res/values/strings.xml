@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MapsMarker</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="place">Place: %s</string>
+    <string name="location">Location (Lat: %f | Lng: %f)</string>
+    <string name="display_all">Display All on Map</string>
+    <string name="no_results">No Results</string>
+    <string name="search">Search...</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="dialog_confirmation">Are you really want to delete selected location?</string>
+    <string name="dialog_alert">Warning</string>
+    <string name="cancel">Cancel</string>
+    <string name="location_saved">Location saved with successful!</string>
+</resources>
