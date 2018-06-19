@@ -1,6 +1,6 @@
 package br.com.mapsmarker.model.api
 
-import br.com.mapsmarker.features.Constants.API_KEY
+import br.com.mapsmarker.BuildConfig.API_KEY
 import br.com.mapsmarker.features.Constants.COMMON_PARAM
 import br.com.mapsmarker.model.domain.SearchResponseVO
 import io.reactivex.Single
