@@ -53,7 +53,7 @@ class HomeViewModelTest {
         val argumentCaptor = ArgumentCaptor.forClass(StateResponse::class.java)
         argumentCaptor.run {
             verify(observerState, times(1))
-                    .onChanged(capture() as StateResponse<SearchResponseVO>)
+                    .onChanged(capture() as StateResponse<SearchResponseVO>?)
             assertFalse(viewModel.loadingStatus.value!!)
         }
     }

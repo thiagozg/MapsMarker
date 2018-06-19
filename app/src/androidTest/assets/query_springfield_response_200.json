@@ -1,0 +1,403 @@
+{
+  "results" : [
+    {
+      "address_components" : [
+        {
+          "long_name" : "Springfield",
+          "short_name" : "Springfield",
+          "types" : [ "locality", "political" ]
+        },
+        {
+          "long_name" : "Condado de Lane",
+          "short_name" : "Condado de Lane",
+          "types" : [ "administrative_area_level_2", "political" ]
+        },
+        {
+          "long_name" : "Oregon",
+          "short_name" : "OR",
+          "types" : [ "administrative_area_level_1", "political" ]
+        },
+        {
+          "long_name" : "Estados Unidos",
+          "short_name" : "US",
+          "types" : [ "country", "political" ]
+        }
+      ],
+      "formatted_address" : "Springfield, OR, EUA",
+      "geometry" : {
+        "bounds" : {
+          "northeast" : {
+            "lat" : 44.0954591,
+            "lng" : -122.87973
+          },
+          "southwest" : {
+            "lat" : 44.027244,
+            "lng" : -123.0508959
+          }
+        },
+        "location" : {
+          "lat" : 44.0462362,
+          "lng" : -123.0220289
+        },
+        "location_type" : "APPROXIMATE",
+        "viewport" : {
+          "northeast" : {
+            "lat" : 44.0954591,
+            "lng" : -122.87973
+          },
+          "southwest" : {
+            "lat" : 44.027244,
+            "lng" : -123.0508959
+          }
+        }
+      },
+      "place_id" : "ChIJvwJwLkfewFQR1j9KnOnbNgU",
+      "types" : [ "locality", "political" ]
+    },
+    {
+      "address_components" : [
+        {
+          "long_name" : "Springfield",
+          "short_name" : "Springfield",
+          "types" : [ "locality", "political" ]
+        },
+        {
+          "long_name" : "Condado de Sangamon",
+          "short_name" : "Condado de Sangamon",
+          "types" : [ "administrative_area_level_2", "political" ]
+        },
+        {
+          "long_name" : "Illinois",
+          "short_name" : "IL",
+          "types" : [ "administrative_area_level_1", "political" ]
+        },
+        {
+          "long_name" : "Estados Unidos",
+          "short_name" : "US",
+          "types" : [ "country", "political" ]
+        }
+      ],
+      "formatted_address" : "Springfield, Illinois, EUA",
+      "geometry" : {
+        "bounds" : {
+          "northeast" : {
+            "lat" : 39.874049,
+            "lng" : -89.5684858
+          },
+          "southwest" : {
+            "lat" : 39.6536259,
+            "lng" : -89.7731769
+          }
+        },
+        "location" : {
+          "lat" : 39.78172130000001,
+          "lng" : -89.6501481
+        },
+        "location_type" : "APPROXIMATE",
+        "viewport" : {
+          "northeast" : {
+            "lat" : 39.874049,
+            "lng" : -89.5684858
+          },
+          "southwest" : {
+            "lat" : 39.6536259,
+            "lng" : -89.7731769
+          }
+        }
+      },
+      "place_id" : "ChIJd9HbJB05dYgRIm2ozO6CLOc",
+      "types" : [ "locality", "political" ]
+    },
+    {
+      "address_components" : [
+        {
+          "long_name" : "Springfield",
+          "short_name" : "Springfield",
+          "types" : [ "locality", "political" ]
+        },
+        {
+          "long_name" : "Condado de Hampden",
+          "short_name" : "Condado de Hampden",
+          "types" : [ "administrative_area_level_2", "political" ]
+        },
+        {
+          "long_name" : "Massachusetts",
+          "short_name" : "MA",
+          "types" : [ "administrative_area_level_1", "political" ]
+        },
+        {
+          "long_name" : "Estados Unidos",
+          "short_name" : "US",
+          "types" : [ "country", "political" ]
+        }
+      ],
+      "formatted_address" : "Springfield, MA, EUA",
+      "geometry" : {
+        "bounds" : {
+          "northeast" : {
+            "lat" : 42.1620859,
+            "lng" : -72.471149
+          },
+          "southwest" : {
+            "lat" : 42.063595,
+            "lng" : -72.6215339
+          }
+        },
+        "location" : {
+          "lat" : 42.1014831,
+          "lng" : -72.589811
+        },
+        "location_type" : "APPROXIMATE",
+        "viewport" : {
+          "northeast" : {
+            "lat" : 42.1620859,
+            "lng" : -72.471149
+          },
+          "southwest" : {
+            "lat" : 42.063595,
+            "lng" : -72.6215339
+          }
+        }
+      },
+      "place_id" : "ChIJH7jkCCzm5okRvaq5QdoIGB0",
+      "types" : [ "locality", "political" ]
+    },
+    {
+      "address_components" : [
+        {
+          "long_name" : "Springfield",
+          "short_name" : "Springfield",
+          "types" : [ "locality", "political" ]
+        },
+        {
+          "long_name" : "Springfield Township",
+          "short_name" : "Springfield Township",
+          "types" : [ "administrative_area_level_3", "political" ]
+        },
+        {
+          "long_name" : "Condado de Greene",
+          "short_name" : "Condado de Greene",
+          "types" : [ "administrative_area_level_2", "political" ]
+        },
+        {
+          "long_name" : "Missouri",
+          "short_name" : "MO",
+          "types" : [ "administrative_area_level_1", "political" ]
+        },
+        {
+          "long_name" : "Estados Unidos",
+          "short_name" : "US",
+          "types" : [ "country", "political" ]
+        }
+      ],
+      "formatted_address" : "Springfield, MO, EUA",
+      "geometry" : {
+        "bounds" : {
+          "northeast" : {
+            "lat" : 37.2708071,
+            "lng" : -93.1786431
+          },
+          "southwest" : {
+            "lat" : 37.0874019,
+            "lng" : -93.414006
+          }
+        },
+        "location" : {
+          "lat" : 37.2089572,
+          "lng" : -93.29229889999999
+        },
+        "location_type" : "APPROXIMATE",
+        "viewport" : {
+          "northeast" : {
+            "lat" : 37.2708071,
+            "lng" : -93.1786431
+          },
+          "southwest" : {
+            "lat" : 37.0874019,
+            "lng" : -93.414006
+          }
+        }
+      },
+      "place_id" : "ChIJP5jIRfdiz4cRoA1pHrNs_Ws",
+      "types" : [ "locality", "political" ]
+    },
+    {
+      "address_components" : [
+        {
+          "long_name" : "Springfield",
+          "short_name" : "Springfield",
+          "types" : [ "locality", "political" ]
+        },
+        {
+          "long_name" : "Condado de Brown",
+          "short_name" : "Condado de Brown",
+          "types" : [ "administrative_area_level_2", "political" ]
+        },
+        {
+          "long_name" : "Minnesota",
+          "short_name" : "MN",
+          "types" : [ "administrative_area_level_1", "political" ]
+        },
+        {
+          "long_name" : "Estados Unidos",
+          "short_name" : "US",
+          "types" : [ "country", "political" ]
+        },
+        {
+          "long_name" : "56087",
+          "short_name" : "56087",
+          "types" : [ "postal_code" ]
+        }
+      ],
+      "formatted_address" : "Springfield, MN 56087, EUA",
+      "geometry" : {
+        "bounds" : {
+          "northeast" : {
+            "lat" : 44.24731389999999,
+            "lng" : -94.96218979999999
+          },
+          "southwest" : {
+            "lat" : 44.2277924,
+            "lng" : -94.9993276
+          }
+        },
+        "location" : {
+          "lat" : 44.23882709999999,
+          "lng" : -94.97416539999999
+        },
+        "location_type" : "APPROXIMATE",
+        "viewport" : {
+          "northeast" : {
+            "lat" : 44.24731389999999,
+            "lng" : -94.96218979999999
+          },
+          "southwest" : {
+            "lat" : 44.2277924,
+            "lng" : -94.9993276
+          }
+        }
+      },
+      "place_id" : "ChIJubdV-yLU9IcRvnTlxPiDSA8",
+      "types" : [ "locality", "political" ]
+    },
+    {
+      "address_components" : [
+        {
+          "long_name" : "Springfield",
+          "short_name" : "Springfield",
+          "types" : [ "locality", "political" ]
+        },
+        {
+          "long_name" : "Springfield Township",
+          "short_name" : "Springfield Township",
+          "types" : [ "administrative_area_level_3", "political" ]
+        },
+        {
+          "long_name" : "Condado de Clark",
+          "short_name" : "Condado de Clark",
+          "types" : [ "administrative_area_level_2", "political" ]
+        },
+        {
+          "long_name" : "Ohio",
+          "short_name" : "OH",
+          "types" : [ "administrative_area_level_1", "political" ]
+        },
+        {
+          "long_name" : "Estados Unidos",
+          "short_name" : "US",
+          "types" : [ "country", "political" ]
+        }
+      ],
+      "formatted_address" : "Springfield, OH, EUA",
+      "geometry" : {
+        "bounds" : {
+          "northeast" : {
+            "lat" : 39.982857,
+            "lng" : -83.703424
+          },
+          "southwest" : {
+            "lat" : 39.8878549,
+            "lng" : -83.8696619
+          }
+        },
+        "location" : {
+          "lat" : 39.9242266,
+          "lng" : -83.8088171
+        },
+        "location_type" : "APPROXIMATE",
+        "viewport" : {
+          "northeast" : {
+            "lat" : 39.982857,
+            "lng" : -83.703424
+          },
+          "southwest" : {
+            "lat" : 39.8878549,
+            "lng" : -83.8696619
+          }
+        }
+      },
+      "place_id" : "ChIJCXyCilhaP4gRu6-BWBcMdD4",
+      "types" : [ "locality", "political" ]
+    },
+    {
+      "address_components" : [
+        {
+          "long_name" : "Springfield",
+          "short_name" : "Springfield",
+          "types" : [ "locality", "political" ]
+        },
+        {
+          "long_name" : "Condado de Robertson",
+          "short_name" : "Condado de Robertson",
+          "types" : [ "administrative_area_level_2", "political" ]
+        },
+        {
+          "long_name" : "Tennessee",
+          "short_name" : "TN",
+          "types" : [ "administrative_area_level_1", "political" ]
+        },
+        {
+          "long_name" : "Estados Unidos",
+          "short_name" : "US",
+          "types" : [ "country", "political" ]
+        },
+        {
+          "long_name" : "37172",
+          "short_name" : "37172",
+          "types" : [ "postal_code" ]
+        }
+      ],
+      "formatted_address" : "Springfield, TN 37172, EUA",
+      "geometry" : {
+        "bounds" : {
+          "northeast" : {
+            "lat" : 36.550056,
+            "lng" : -86.8142039
+          },
+          "southwest" : {
+            "lat" : 36.44489,
+            "lng" : -86.94467499999999
+          }
+        },
+        "location" : {
+          "lat" : 36.5092118,
+          "lng" : -86.8849984
+        },
+        "location_type" : "APPROXIMATE",
+        "viewport" : {
+          "northeast" : {
+            "lat" : 36.550056,
+            "lng" : -86.8142039
+          },
+          "southwest" : {
+            "lat" : 36.44489,
+            "lng" : -86.94467499999999
+          }
+        }
+      },
+      "place_id" : "ChIJ6fLjhYxVZIgRCFgpr4y_V7o",
+      "types" : [ "locality", "political" ]
+    }
+  ],
+  "status" : "OK"
+}
