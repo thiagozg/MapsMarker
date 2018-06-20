@@ -1,14 +1,14 @@
 package br.com.mapsmarker.features.home
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
-import br.com.mapsmarker.mock
 import br.com.mapsmarker.model.domain.SearchResponseVO
 import br.com.mapsmarker.model.repository.GoogleMapsRepository
-import br.com.mapsmarker.whenever
 import io.reactivex.Single
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyString
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.whenever
 
 class HomeUseCaseTest {
 

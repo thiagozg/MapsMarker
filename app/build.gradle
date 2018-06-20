@@ -14,7 +14,9 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
+//        testInstrumentationRunner 'com.github.tmurakami.dexopener.DexOpenerAndroidJUnitRunner'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//        testInstrumentationRunner "br.com.mapsmarker.TestRunner"
 
         buildConfigField 'String', "API_KEY", GOOGLE_API_KEY
     }

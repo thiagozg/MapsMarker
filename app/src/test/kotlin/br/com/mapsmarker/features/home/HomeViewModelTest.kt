@@ -2,11 +2,11 @@ package br.com.mapsmarker.features.home
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.Observer
-import br.com.mapsmarker.mock
 import br.com.mapsmarker.model.api.StateResponse
 import br.com.mapsmarker.model.api.StatusEnum
 import br.com.mapsmarker.model.domain.SearchResponseVO
-import br.com.mapsmarker.whenever
+import com.nhaarman.mockito_kotlin.mock
+import com.nhaarman.mockito_kotlin.whenever
 import io.github.plastix.rxschedulerrule.RxSchedulerRule
 import io.reactivex.Single
 import org.junit.Assert.assertEquals
@@ -17,8 +17,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito.*
-
-
 
 class HomeViewModelTest {
     

@@ -18,19 +18,12 @@ object AndroidTestConstantas {
     val GSON = Gson()
 }
 
-fun changeBaseUrl(newBaseUrl: String) { // TODO: finalize this logic
+fun changeBaseUrl(newBaseUrl: String) {
     val field = Constants.javaClass.getDeclaredField("BASE_URL")
-//    val modifiersField = field.javaClass.getDeclaredField("modifiers")
-
     val isModifierAccessible = field.isAccessible()
-    field.setAccessible(!isModifierAccessible)
-//    val originalModifiersInt = field.getInt()
-//    field.setInt(field, field.getModifiers() and Modifier.FINAL.inv())
-
-    field.set(null, newBaseUrl)
-
+    field.setAccessible(true)
+    field.set(Constants.javaClass, newBaseUrl)
     field.setAccessible(isModifierAccessible)
-//    field.setInt(field, originalModifiersInt)
 }
 
 fun viewBy(id: Int) = onView(withId(id))

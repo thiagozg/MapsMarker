@@ -108,11 +108,5 @@ class HomeActivity(override val layoutResId: Int = R.layout.activity_home) :
         return true
     }
 
-    override fun onQueryTextChange(query: String): Boolean {
-        with (query) {
-            if (length > 4 && length % 2 == 0)
-                viewModel.searchByQuery(query)
-        }
-        return true
-    }
+    override fun onQueryTextChange(query: String) = false
 }
