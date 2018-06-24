@@ -4,7 +4,9 @@ package br.com.mapsmarker.features.map
 
 import android.arch.lifecycle.MutableLiveData
 import br.com.mapsmarker.base.BaseViewModel
+import br.com.mapsmarker.model.api.StateError
 import br.com.mapsmarker.model.api.StateResponse
+import br.com.mapsmarker.model.api.StateSuccess
 import br.com.mapsmarker.model.domain.LatLngBO
 import br.com.mapsmarker.model.domain.LocationDTO
 import br.com.mapsmarker.model.domain.ResultVO
@@ -17,7 +19,7 @@ import javax.inject.Inject
 class MapsViewModel
 @Inject constructor(private val useCase: MapsUseCase) : BaseViewModel() {
 
-    private val viewResponse = MutableLiveData<StateResponse<Any>>()
+    private val viewResponse = MutableLiveData<StateResponse<*>>()
 
     fun getLocationStored(location: ResultVO) = useCase.searchLocation(location.placeId)
 
@@ -36,8 +38,8 @@ class MapsViewModel
     private fun Single<*>.getSingleStoreLocation() =
             subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe( { viewResponse.value = StateResponse.success(it) },
-                            { viewResponse.value = StateResponse.error(it) })
+                    .subscribe( { viewResponse.value = StateSuccess(it) },
+                                { viewResponse.value = StateError(it) })
 
     fun getLatLngAverage(maxPosition: LatLngBO, minPosition: LatLngBO) = LatLng(
             (maxPosition.latitude + minPosition.latitude) / 2,

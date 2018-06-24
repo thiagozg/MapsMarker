@@ -1,20 +1,7 @@
 package br.com.mapsmarker.model.api
 
-import br.com.mapsmarker.model.api.StatusEnum.ERROR
-import br.com.mapsmarker.model.api.StatusEnum.SUCCESS
+sealed class StateResponse<T>(val data: T? = null,
+                              val error: Throwable? = null)
 
-class StateResponse<T>
-constructor(val status: StatusEnum, val data: T? = null,
-            val error: Throwable? = null, val isLoading: Boolean = false) {
-    companion object {
-
-        fun <T> success(data: T): StateResponse<T> {
-            return StateResponse(SUCCESS, data)
-        }
-
-        fun <T> error(error: Throwable): StateResponse<T> {
-            return StateResponse(ERROR, error = error)
-        }
-
-    }
-}
+class StateSuccess<T>(data: T) : StateResponse<T>(data = data)
+class StateError(error: Throwable) : StateResponse<Throwable>(error = error)

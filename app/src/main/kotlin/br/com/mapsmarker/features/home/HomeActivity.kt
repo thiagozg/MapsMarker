@@ -17,8 +17,9 @@ import br.com.mapsmarker.features.Constants.KEY_PLACE
 import br.com.mapsmarker.features.Constants.STATUS_API_OK
 import br.com.mapsmarker.features.Constants.STATUS_API_OVER_QUERY_LIMIT
 import br.com.mapsmarker.features.map.MapsActivity
+import br.com.mapsmarker.model.api.StateError
 import br.com.mapsmarker.model.api.StateResponse
-import br.com.mapsmarker.model.api.StatusEnum
+import br.com.mapsmarker.model.api.StateSuccess
 import br.com.mapsmarker.model.domain.ResultVO
 import br.com.mapsmarker.model.domain.SearchResponseVO
 import kotlinx.android.synthetic.main.activity_home.*
@@ -45,7 +46,7 @@ class HomeActivity(override val layoutResId: Int = R.layout.activity_home) :
     }
 
     private fun observeSearchResponse() {
-        viewModel.getResponse().observe(this, Observer<StateResponse<SearchResponseVO>> {
+        viewModel.getResponse().observe(this, Observer<StateResponse<*>> {
             response -> response?.let {
                 processResponse(it)
             }
@@ -53,8 +54,8 @@ class HomeActivity(override val layoutResId: Int = R.layout.activity_home) :
     }
 
     private fun processResponse(response: StateResponse<*>) {
-        when (response.status) {
-            StatusEnum.SUCCESS -> {
+        when (response) {
+            is StateSuccess -> {
                 if (response.data is SearchResponseVO) {
                     if (adapter == null) setupRecyclerView()
                     when (response.data.status) {
@@ -68,7 +69,7 @@ class HomeActivity(override val layoutResId: Int = R.layout.activity_home) :
                 }
             }
 
-            StatusEnum.ERROR -> {
+            is StateError -> {
                 Log.e(localClassName, response.error?.message, response.error)
                 Toast.makeText(this, response.error?.message, Toast.LENGTH_SHORT).show()
             }
@@ -94,7 +95,6 @@ class HomeActivity(override val layoutResId: Int = R.layout.activity_home) :
 
             override fun onMenuItemActionCollapse(menuItem: MenuItem): Boolean {
                 this@HomeActivity.closeKeyboard()
-                processResponse(StateResponse(StatusEnum.LOADING, data = null, isLoading = false))
                 return true
             }
         })

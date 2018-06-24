@@ -3,7 +3,6 @@ package br.com.mapsmarker.features.home
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.Observer
 import br.com.mapsmarker.model.api.StateResponse
-import br.com.mapsmarker.model.api.StatusEnum
 import br.com.mapsmarker.model.domain.SearchResponseVO
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
