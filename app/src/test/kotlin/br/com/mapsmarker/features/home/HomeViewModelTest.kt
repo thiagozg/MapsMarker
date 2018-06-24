@@ -2,80 +2,114 @@ package br.com.mapsmarker.features.home
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.Observer
+import br.com.mapsmarker.model.api.StateError
 import br.com.mapsmarker.model.api.StateResponse
+import br.com.mapsmarker.model.api.StateSuccess
 import br.com.mapsmarker.model.domain.SearchResponseVO
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
 import io.github.plastix.rxschedulerrule.RxSchedulerRule
 import io.reactivex.Single
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
-import org.junit.Before
-import org.junit.Ignore
+import io.reactivex.subjects.PublishSubject
+import org.hamcrest.CoreMatchers.instanceOf
+import org.junit.After
+import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito.*
 
+
+
 class HomeViewModelTest {
     
     @get:Rule
-    val rule = InstantTaskExecutorRule()
+    val archRule = InstantTaskExecutorRule()
 
     @get:Rule
     var schedulersRule = RxSchedulerRule()
 
     val useCase = mock<HomeUseCase>()
-    val observerState = mock<Observer<StateResponse<SearchResponseVO>>>()
+    val observerState = mock<Observer<StateResponse<*>>>()
+    val observerLoading = mock<Observer<Boolean>>()
+    val viewModel by lazy { spy(HomeViewModel(useCase)) }
 
-    val viewModel by lazy { HomeViewModel(useCase) }
-
-    @Before
-    fun setUp() {
+    @After
+    fun tearDown() {
         reset(useCase, observerState)
     }
 
     @Test
-    fun testSearchByQuery_getResponse_successful() {
+    fun testSearchByQuery_shouldViewResponseHasStateSuccess() {
+        // Arrange
+        val searchResponseVO = SearchResponseVO()
         whenever(useCase.requestSearchByQuery(anyString()))
-                .thenReturn(Single.just(SearchResponseVO()))
+                .thenReturn(Single.just(searchResponseVO))
 
-        val query = "Springfield"
-
+        // Act
         viewModel.getResponse().observeForever(observerState)
-        viewModel.searchByQuery(query)
+        viewModel.loadingStatus.observeForever(observerLoading)
+        viewModel.searchByQuery(anyString())
+        viewModel.getResponse().removeObserver(observerState)
+        viewModel.loadingStatus.removeObserver(observerLoading)
 
-        verify(useCase).requestSearchByQuery(query)
-
+        // Assert
         val argumentCaptor = ArgumentCaptor.forClass(StateResponse::class.java)
+        val expectedSuccesState = StateSuccess(searchResponseVO)
         argumentCaptor.run {
-            verify(observerState, times(1))
-                    .onChanged(capture() as StateResponse<SearchResponseVO>?)
-            assertFalse(viewModel.loadingStatus.value!!)
+            verify(observerState, times(1)).onChanged(capture())
+            val (successState) = allValues
+            assertThat(successState.data, instanceOf(SearchResponseVO::class.java))
+            assertEquals(expectedSuccesState.data, successState.data)
         }
+        assertFalse(viewModel.loadingStatus.value!!)
     }
 
-    @Ignore
     @Test
-    fun testSearchByQuery_getResponse_error() {
-        val response = Throwable("Error response")
+    fun testSearchByQuery_shouldViewResponseHasStateError() {
+        // Arrange
+        val errorResponse = Throwable("Error response")
         whenever(useCase.requestSearchByQuery(anyString()))
-                .thenReturn(Single.error(response))
+                .thenReturn(Single.error(errorResponse))
 
+        // Act
         viewModel.getResponse().observeForever(observerState)
+        viewModel.loadingStatus.observeForever(observerLoading)
         viewModel.searchByQuery(anyString())
+        viewModel.getResponse().removeObserver(observerState)
+        viewModel.loadingStatus.removeObserver(observerLoading)
 
-        verify(useCase).requestSearchByQuery(anyString())
-
-        val argumentCaptor = ArgumentCaptor.forClass(Throwable::class.java)
-        val expectedErrorState = StateResponse(StatusEnum.ERROR, null, error = Throwable("Error."))
+        // Assert
+        val argumentCaptor = ArgumentCaptor.forClass(StateResponse::class.java)
+        val expectedErrorState = StateError(error = errorResponse)
         argumentCaptor.run {
-//            verify(observerState, times(1))
-//                    .onChanged(capture())
+            verify(observerState, times(1)).onChanged(capture())
             val (errorState) = allValues
-            assertEquals(errorState, expectedErrorState)
-            assertFalse(viewModel.loadingStatus.value!!)
+            assertThat(errorState.error, instanceOf(Throwable::class.java))
+            assertEquals(errorState.error, expectedErrorState.error)
         }
+        assertFalse(viewModel.loadingStatus.value!!)
+    }
+
+    @Test
+    fun testSearchByQuery_shouldHasLoadingStatus() {
+        // Arrange
+        val searchResponseVO = mock<SearchResponseVO>()
+        val delayer = PublishSubject.create<Boolean>()
+
+        whenever(useCase.requestSearchByQuery(anyString()))
+                .thenReturn(Single.just<SearchResponseVO>(searchResponseVO)
+                        .delaySubscription(delayer))
+
+        // Act
+        viewModel.loadingStatus.observeForever(observerLoading)
+        viewModel.searchByQuery(anyString())
+        viewModel.loadingStatus.removeObserver(observerLoading)
+
+        // Assert
+        assertTrue(viewModel.loadingStatus.value!!)
+        delayer.onComplete()
+        assertFalse(viewModel.loadingStatus.value!!)
     }
 
 }

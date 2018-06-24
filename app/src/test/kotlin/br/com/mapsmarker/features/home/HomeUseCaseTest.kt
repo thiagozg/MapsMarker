@@ -1,28 +1,14 @@
 package br.com.mapsmarker.features.home
 
 import br.com.mapsmarker.model.repository.GoogleMapsRepository
-import com.nhaarman.mockito_kotlin.never
-import com.nhaarman.mockito_kotlin.spy
-import com.nhaarman.mockito_kotlin.times
-import com.nhaarman.mockito_kotlin.verify
-import org.junit.Before
+import com.nhaarman.mockito_kotlin.*
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyString
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
 
 class HomeUseCaseTest {
 
-    @Mock
-    lateinit var repository: GoogleMapsRepository
-
-    lateinit var useCase: HomeUseCase
-
-    @Before
-    fun setUp() {
-        MockitoAnnotations.initMocks(this)
-        useCase = spy(HomeUseCase(repository))
-    }
+    val repository = mock<GoogleMapsRepository>()
+    val useCase: HomeUseCase by lazy { spy(HomeUseCase(repository)) }
 
     @Test(expected = KotlinNullPointerException::class)
     fun testRequestSearchByQuery_noQuery() {
