@@ -1,43 +1,48 @@
 package br.com.mapsmarker.features.home
 
-import android.arch.core.executor.testing.InstantTaskExecutorRule
-import br.com.mapsmarker.model.domain.SearchResponseVO
 import br.com.mapsmarker.model.repository.GoogleMapsRepository
-import io.reactivex.Single
-import org.junit.Rule
+import com.nhaarman.mockito_kotlin.never
+import com.nhaarman.mockito_kotlin.spy
+import com.nhaarman.mockito_kotlin.times
+import com.nhaarman.mockito_kotlin.verify
+import org.junit.Before
 import org.junit.Test
 import org.mockito.ArgumentMatchers.anyString
-import com.nhaarman.mockito_kotlin.mock
-import com.nhaarman.mockito_kotlin.whenever
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 
 class HomeUseCaseTest {
 
-    @get:Rule
-    val rule = InstantTaskExecutorRule()
+    @Mock
+    lateinit var repository: GoogleMapsRepository
 
-    val repository = mock<GoogleMapsRepository>()
+    lateinit var useCase: HomeUseCase
 
-    val useCase by lazy { HomeUseCase(repository) }
+    @Before
+    fun setUp() {
+        MockitoAnnotations.initMocks(this)
+        useCase = spy(HomeUseCase(repository))
+    }
 
-    @Test
-    fun testSearchByQuery_getSearchResponse_singleCompleted() {
-        whenever(repository.searchByQuery(anyString()))
-                .thenReturn(Single.just(SearchResponseVO()))
-
-        useCase.requestSearchByQuery("Springfield")
-                .test()
-                .assertComplete()
+    @Test(expected = KotlinNullPointerException::class)
+    fun testRequestSearchByQuery_noQuery() {
+        val query: String? = null
+        useCase.requestSearchByQuery(query!!)
+        verify(repository, never()).searchByQuery(query)
     }
 
     @Test
-    fun testSearchByQuery_getSearchResponse_singleError() {
-        val response = Throwable("Error response")
-        whenever(repository.searchByQuery(anyString()))
-                .thenReturn(Single.error(response))
+    fun testRequestSearchByQuery_shouldRequestOneTime() {
+        useCase.requestSearchByQuery(anyString())
+        verify(repository, times(1)).searchByQuery(anyString())
+    }
 
-        useCase.requestSearchByQuery("Springfield")
-                .test()
-                .assertError(response)
+    @Test
+    fun testRequestSearchByQuery_shoudRequestThreeTimes() {
+        repeat(3) {
+            useCase.requestSearchByQuery(anyString())
+        }
+        verify(repository, times(3)).searchByQuery(anyString())
     }
 
 }
