@@ -26,12 +26,9 @@ class MapsViewModel
     fun storeLocation(location: ResultVO?, shouldSave: Boolean) {
         location?.let {
             disposables.add(Single.fromCallable {
-                if (shouldSave)
-                    useCase.insetLocation(LocationDTO(it))
-                else
-                    useCase.deleteLocation(LocationDTO(it))
-                }.getSingleStoreLocation()
-            )
+                    if (shouldSave) useCase.insetLocation(LocationDTO(it))
+                    else useCase.deleteLocation(LocationDTO(it))
+            }.getSingleStoreLocation())
         }
     }
 
@@ -45,12 +42,14 @@ class MapsViewModel
             (maxPosition.latitude + minPosition.latitude) / 2,
             (maxPosition.longitude + minPosition.longitude) / 2)
 
-    fun getClosestToMax(pos1: Double, pos2: Double, criterion: Double) =
-            if (criterion - pos1 < criterion - pos2) pos1
-            else pos2
+    fun getClosestToCriterion(pos1: Double, pos2: Double, criterion: Double): Double {
+        val diff1 = (pos1 - criterion).roundToPositive()
+        val diff2 = (pos2 - criterion).roundToPositive()
+        return if (diff1 < diff2) pos1 else pos2
+    }
 
-    fun getClosestToMin(pos1: Double, pos2: Double, criterion: Double) =
-            if (criterion - pos1 < criterion - pos2) pos2
-            else pos1
+    private fun Double.roundToPositive() =
+            if (this < 0) (this * -1)
+            else this
 
 }

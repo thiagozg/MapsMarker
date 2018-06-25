@@ -22,8 +22,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import org.parceler.Parcels
 import javax.inject.Inject
 
-
-
 class MapsActivity(override val layoutResId: Int = R.layout.activity_maps) :
         BaseActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener, MenuItem.OnMenuItemClickListener {
 
@@ -57,22 +55,23 @@ class MapsActivity(override val layoutResId: Int = R.layout.activity_maps) :
             it.forEach {
                 position = LatLng(it.geometry.location.lat, it.geometry.location.lng)
 
-                maxPosition.latitude = viewModel.getClosestToMax(
+                maxPosition.latitude = viewModel.getClosestToCriterion(
                         maxPosition.latitude, position.latitude, LAT_MAX_VALUE)
 
-                maxPosition.longitude = viewModel.getClosestToMax(
+                maxPosition.longitude = viewModel.getClosestToCriterion(
                         maxPosition.longitude, position.longitude, LNG_MAX_VALUE)
 
-                minPosition.latitude = viewModel.getClosestToMin(
+                minPosition.latitude = viewModel.getClosestToCriterion(
                         minPosition.latitude, position.latitude, LAT_MIN_VALUE)
 
-                minPosition.longitude = viewModel.getClosestToMin(
+                minPosition.longitude = viewModel.getClosestToCriterion(
                         minPosition.longitude, position.longitude, LNG_MIN_VALUE)
 
-                googleMap.addMarker(MarkerOptions()
-                        .position(position)
-                        .title("${it.formattedAddress}: ${position.latitude} / ${position.longitude}"))
-                        .tag = it.placeId
+                googleMap.addMarker(
+                        MarkerOptions()
+                                .position(position)
+                                .title("${it.formattedAddress}: ${position.latitude} / ${position.longitude}")
+                ).tag = it.placeId
 
                 mapLocation.put(it.placeId, it)
 
