@@ -19,20 +19,16 @@ import org.junit.Test
 import org.mockito.ArgumentCaptor
 import org.mockito.Mockito.*
 
-
-
 class HomeViewModelTest {
     
-    @get:Rule
-    val archRule = InstantTaskExecutorRule()
+    @get:Rule val archRule = InstantTaskExecutorRule()
 
-    @get:Rule
-    var schedulersRule = RxSchedulerRule()
+    @get:Rule var schedulersRule = RxSchedulerRule()
 
     val useCase = mock<HomeUseCase>()
+    val viewModel by lazy { spy(HomeViewModel(useCase)) }
     val observerState = mock<Observer<StateResponse<*>>>()
     val observerLoading = mock<Observer<Boolean>>()
-    val viewModel by lazy { spy(HomeViewModel(useCase)) }
 
     @After
     fun tearDown() {
