@@ -2,11 +2,7 @@
 
 package br.com.mapsmarker.features.map
 
-import android.arch.lifecycle.MutableLiveData
 import br.com.mapsmarker.base.BaseViewModel
-import br.com.mapsmarker.model.api.StateError
-import br.com.mapsmarker.model.api.StateResponse
-import br.com.mapsmarker.model.api.StateSuccess
 import br.com.mapsmarker.model.domain.LatLngBO
 import br.com.mapsmarker.model.domain.LocationDTO
 import br.com.mapsmarker.model.domain.ResultVO
@@ -19,30 +15,24 @@ import javax.inject.Inject
 class MapsViewModel
 @Inject constructor(private val useCase: MapsUseCase) : BaseViewModel() {
 
-    private val viewResponse = MutableLiveData<StateResponse<*>>()
-
     fun getLocationStored(location: ResultVO) = useCase.searchLocation(location.placeId)
 
     fun storeLocation(location: ResultVO?, shouldSave: Boolean) {
         location?.let {
             disposables.add(Single.fromCallable {
-                    if (shouldSave) useCase.insetLocation(LocationDTO(it))
-                    else useCase.deleteLocation(LocationDTO(it))
-            }.getSingleStoreLocation())
+                if (shouldSave) useCase.insetLocation(LocationDTO(it))
+                else useCase.deleteLocation(LocationDTO(it))
+            }.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe())
         }
     }
-
-    private fun Single<*>.getSingleStoreLocation() =
-            subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe( { viewResponse.value = StateSuccess(it) },
-                                { viewResponse.value = StateError(it) })
 
     fun getLatLngAverage(maxPosition: LatLngBO, minPosition: LatLngBO) = LatLng(
             (maxPosition.latitude + minPosition.latitude) / 2,
             (maxPosition.longitude + minPosition.longitude) / 2)
 
-    fun getClosestToCriterion(pos1: Double, pos2: Double, criterion: Double): Double {
+    fun getClosest(pos1: Double, pos2: Double, criterion: Double): Double {
         val diff1 = (pos1 - criterion).roundToPositive()
         val diff2 = (pos2 - criterion).roundToPositive()
         return if (diff1 < diff2) pos1 else pos2

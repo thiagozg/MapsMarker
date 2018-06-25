@@ -55,16 +55,16 @@ class MapsActivity(override val layoutResId: Int = R.layout.activity_maps) :
             it.forEach {
                 position = LatLng(it.geometry.location.lat, it.geometry.location.lng)
 
-                maxPosition.latitude = viewModel.getClosestToCriterion(
+                maxPosition.latitude = viewModel.getClosest(
                         maxPosition.latitude, position.latitude, LAT_MAX_VALUE)
 
-                maxPosition.longitude = viewModel.getClosestToCriterion(
+                maxPosition.longitude = viewModel.getClosest(
                         maxPosition.longitude, position.longitude, LNG_MAX_VALUE)
 
-                minPosition.latitude = viewModel.getClosestToCriterion(
+                minPosition.latitude = viewModel.getClosest(
                         minPosition.latitude, position.latitude, LAT_MIN_VALUE)
 
-                minPosition.longitude = viewModel.getClosestToCriterion(
+                minPosition.longitude = viewModel.getClosest(
                         minPosition.longitude, position.longitude, LNG_MIN_VALUE)
 
                 googleMap.addMarker(
