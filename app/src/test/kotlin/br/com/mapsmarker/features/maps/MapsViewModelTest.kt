@@ -1,10 +1,9 @@
 package br.com.mapsmarker.features.maps
 
-import android.arch.lifecycle.LiveData
+import android.arch.core.executor.testing.InstantTaskExecutorRule
 import android.arch.lifecycle.Observer
 import br.com.mapsmarker.features.map.MapsUseCase
 import br.com.mapsmarker.features.map.MapsViewModel
-import br.com.mapsmarker.model.data.LocationDao
 import br.com.mapsmarker.model.domain.LatLngBO
 import br.com.mapsmarker.model.domain.LocationDTO
 import br.com.mapsmarker.model.domain.ResultVO
@@ -14,37 +13,37 @@ import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import io.github.plastix.rxschedulerrule.RxSchedulerRule
 import junit.framework.Assert.assertEquals
+import junit.framework.Assert.assertNull
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.ArgumentCaptor
-import org.mockito.ArgumentMatchers.anyString
 
 class MapsViewModelTest {
 
+    @get:Rule var archRule = InstantTaskExecutorRule()
+
     @get:Rule var schedulersRule = RxSchedulerRule()
 
-    val dao = mock<LocationDao>()
     val useCase = mock<MapsUseCase>()
     val viewModel by lazy { MapsViewModel(useCase) }
     val observerState = mock<Observer<LocationDTO>>()
 
-    @Ignore
     @Test
     fun testGetLocationStored_shoudHasLocations() {
         // Arrange
-        val mockLocation = mock<LiveData<LocationDTO>>()
-        val mockResult = mock<ResultVO>()
-        whenever(dao.getLocationById(anyString()))
+        val placeId = "HUE"
+        val mockLocation = mock<LocationDTO>()
+        val mockResult = ResultVO(placeId = placeId)
+        whenever(useCase.searchLocation(placeId))
                 .thenReturn(mockLocation)
-        whenever(useCase.searchLocation(anyString()))
-                .thenReturn(dao.getLocationById(anyString()))
 
         // Act
-        val observerLocationStored = viewModel.getLocationStored(mockResult)
-        observerLocationStored.observeForever(observerState)
+        viewModel.getLocationData().observeForever(observerState)
+        viewModel.getLocationStored(mockResult)
+        viewModel.getLocationData().removeObserver(observerState)
 
         // Assert
         val argumentCaptor = ArgumentCaptor.forClass(LocationDTO::class.java)
@@ -56,10 +55,20 @@ class MapsViewModelTest {
         }
     }
 
-    @Ignore
     @Test
     fun testGetLocationStored_shoudntHasLocations() {
-        // TODO
+        val mockResult = ResultVO(placeId = "HUE")
+
+        viewModel.getLocationData().observeForever(observerState)
+        viewModel.getLocationStored(mockResult)
+        viewModel.getLocationData().removeObserver(observerState)
+
+        val argumentCaptor = ArgumentCaptor.forClass(LocationDTO::class.java)
+        argumentCaptor.run {
+            verify(observerState, times(1)).onChanged(capture())
+            val (locationStored) = allValues
+            assertNull(locationStored)
+        }
     }
 
     @Ignore

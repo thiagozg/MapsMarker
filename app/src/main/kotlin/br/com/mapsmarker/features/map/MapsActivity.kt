@@ -35,6 +35,7 @@ class MapsActivity(override val layoutResId: Int = R.layout.activity_maps) :
         super.onCreate(savedInstanceState)
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        observeLocationStored()
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -91,7 +92,7 @@ class MapsActivity(override val layoutResId: Int = R.layout.activity_maps) :
 
     override fun onMarkerClick(marker: Marker): Boolean {
         location = mapLocation[marker.tag]
-        observeLocationStored()
+        checkLocationIsStored()
         return false
     }
 
@@ -99,23 +100,24 @@ class MapsActivity(override val layoutResId: Int = R.layout.activity_maps) :
         menuInflater.inflate(R.menu.menu_maps, menu)
         actionItem = menu.findItem(R.id.action)
         actionItem.setOnMenuItemClickListener(this)
-        observeLocationStored()
+        checkLocationIsStored()
         return true
     }
 
     private fun observeLocationStored() {
-        location?.let {
-            viewModel.getLocationStored(location!!).observe(this, Observer<LocationDTO> {
-                if (it != null) {
-                    actionItem.title = getString(R.string.delete)
-                    actionItem.icon = ContextCompat.getDrawable(this, android.R.drawable.ic_menu_delete)
-                } else {
-                    actionItem.title = getString(R.string.save)
-                    actionItem.icon = ContextCompat.getDrawable(this, android.R.drawable.ic_menu_save)
-                }
-            })
-        }
+        viewModel.getLocationData().observe(this, Observer<LocationDTO> {
+            if (it != null && it.isSaved) {
+                actionItem.title = getString(R.string.delete)
+                actionItem.icon = ContextCompat.getDrawable(this, android.R.drawable.ic_menu_delete)
+            } else {
+                actionItem.title = getString(R.string.save)
+                actionItem.icon = ContextCompat.getDrawable(this, android.R.drawable.ic_menu_save)
+            }
+        })
     }
+
+    private fun checkLocationIsStored() = location?.let { viewModel.getLocationStored(location!!) }
+
 
     override fun onMenuItemClick(menuItem: MenuItem): Boolean {
         when (menuItem.title) {

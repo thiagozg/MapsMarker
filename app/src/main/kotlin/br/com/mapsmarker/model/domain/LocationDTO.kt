@@ -13,10 +13,15 @@ class LocationDTO(
         var longitude: Double) {
 
     @Ignore
-    constructor(resultVO: ResultVO) :
+    var isSaved: Boolean = true
+
+    @Ignore
+    constructor(resultVO: ResultVO, isSaveAction: Boolean) :
             this(resultVO.placeId,
                     resultVO.formattedAddress,
                     resultVO.geometry.location.lat,
-                    resultVO.geometry.location.lng)
+                    resultVO.geometry.location.lng) {
+        this.isSaved = isSaveAction
+    }
 
 }

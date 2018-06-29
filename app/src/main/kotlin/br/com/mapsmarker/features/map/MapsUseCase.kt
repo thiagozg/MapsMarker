@@ -2,13 +2,10 @@ package br.com.mapsmarker.features.map
 
 import br.com.mapsmarker.model.data.LocationDao
 import br.com.mapsmarker.model.domain.LocationDTO
-import io.reactivex.Single
 import javax.inject.Inject
 
 class MapsUseCase
-@Inject constructor() {
-
-    @Inject protected lateinit var locationDao: LocationDao
+@Inject constructor(private val locationDao: LocationDao) {
 
     fun searchLocation(placeId: String) = locationDao.getLocationById(placeId)
 

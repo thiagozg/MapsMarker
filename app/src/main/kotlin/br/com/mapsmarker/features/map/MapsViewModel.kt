@@ -2,6 +2,7 @@
 
 package br.com.mapsmarker.features.map
 
+import android.arch.lifecycle.MutableLiveData
 import br.com.mapsmarker.base.BaseViewModel
 import br.com.mapsmarker.model.domain.LatLngBO
 import br.com.mapsmarker.model.domain.LocationDTO
@@ -15,17 +16,32 @@ import javax.inject.Inject
 class MapsViewModel
 @Inject constructor(private val useCase: MapsUseCase) : BaseViewModel() {
 
-    fun getLocationStored(location: ResultVO) = useCase.searchLocation(location.placeId)
+    private val locationData = MutableLiveData<LocationDTO>()
+
+    fun getLocationData() = locationData
+
+    fun getLocationStored(location: ResultVO) {
+        disposables.add(createSingleCallable { useCase.searchLocation(location.placeId) }
+                .subscribe( { locationData.value = it },
+                            { locationData.value = null } )
+        )
+    }
 
     fun storeLocation(location: ResultVO?, shouldSave: Boolean) {
         location?.let {
-            disposables.add(Single.fromCallable {
-                if (shouldSave) useCase.insetLocation(LocationDTO(it))
-                else useCase.deleteLocation(LocationDTO(it))
-            }.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe())
+            val locationDTO = LocationDTO(it, shouldSave)
+            disposables.add(createSingleCallable {
+                    if (shouldSave) useCase.insetLocation(locationDTO)
+                    else useCase.deleteLocation(locationDTO)
+                }.subscribe { _ -> locationData.value = locationDTO }
+            )
         }
+    }
+
+    private inline fun <T> createSingleCallable(crossinline callable: () -> T): Single<T> {
+        return Single.fromCallable { callable.invoke() }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
     }
 
     fun getLatLngAverage(maxPosition: LatLngBO, minPosition: LatLngBO) = LatLng(
