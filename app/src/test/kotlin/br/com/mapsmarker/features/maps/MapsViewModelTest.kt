@@ -16,7 +16,6 @@ import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertNull
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.mockito.ArgumentCaptor
@@ -24,7 +23,6 @@ import org.mockito.ArgumentCaptor
 class MapsViewModelTest {
 
     @get:Rule var archRule = InstantTaskExecutorRule()
-
     @get:Rule var schedulersRule = RxSchedulerRule()
 
     val useCase = mock<MapsUseCase>()
@@ -71,16 +69,52 @@ class MapsViewModelTest {
         }
     }
 
-    @Ignore
     @Test
     fun testStoreLocation_shoudSaveLocation() {
-        // TODO
+        // Arrange
+        val isSaveAction = true
+        val mockResult = ResultVO(placeId = "HUE")
+        val mockLocation = LocationDTO(mockResult, isSaveAction)
+        whenever(useCase.insetLocation(mockLocation))
+                .thenReturn(1)
+
+        // Act
+        viewModel.getLocationData().observeForever(observerState)
+        viewModel.storeLocation(mockResult, isSaveAction)
+        viewModel.getLocationData().removeObserver(observerState)
+
+        // Assert
+        val argumentCaptor = ArgumentCaptor.forClass(LocationDTO::class.java)
+        argumentCaptor.run {
+            verify(observerState, times(1)).onChanged(capture())
+            val (locationStored) = allValues
+            assertThat(locationStored, instanceOf(LocationDTO::class.java))
+            assertEquals(mockLocation.placeId, locationStored.placeId)
+        }
     }
 
-    @Ignore
     @Test
     fun testStoreLocation_shoudDeleteLocation() {
-        // TODO
+        // Arrange
+        val isSaveAction = false
+        val mockResult = ResultVO(placeId = "HUE")
+        val mockLocation = LocationDTO(mockResult, isSaveAction)
+        whenever(useCase.deleteLocation(mockLocation))
+                .thenReturn(1)
+
+        // Act
+        viewModel.getLocationData().observeForever(observerState)
+        viewModel.storeLocation(mockResult, isSaveAction)
+        viewModel.getLocationData().removeObserver(observerState)
+
+        // Assert
+        val argumentCaptor = ArgumentCaptor.forClass(LocationDTO::class.java)
+        argumentCaptor.run {
+            verify(observerState, times(1)).onChanged(capture())
+            val (locationRemoved) = allValues
+            assertThat(locationRemoved, instanceOf(LocationDTO::class.java))
+            assertEquals(mockLocation.placeId, locationRemoved.placeId)
+        }
     }
 
     @Test

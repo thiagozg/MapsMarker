@@ -1,6 +1,5 @@
 package br.com.mapsmarker.features.maps
 
-import android.arch.lifecycle.LiveData
 import br.com.mapsmarker.features.map.MapsUseCase
 import br.com.mapsmarker.model.data.LocationDao
 import br.com.mapsmarker.model.domain.LocationDTO
@@ -16,7 +15,7 @@ class MapsUseCaseTest {
 
     @Test
     fun testSearchLocation_shouldHasLocation() {
-        val mockLocation = mock<LiveData<LocationDTO>>()
+        val mockLocation = mock<LocationDTO>()
         doReturn(mockLocation)
                 .whenever(dao)
                 .getLocationById(anyString())
@@ -29,7 +28,7 @@ class MapsUseCaseTest {
 
     @Test
     fun testSearchLocation_shouldntHasLocation() {
-        val mockLocation = mock<LiveData<LocationDTO>>()
+        val mockLocation = mock<LocationDTO>()
         doReturn(mockLocation)
                 .whenever(dao)
                 .getLocationById("Springfield")
