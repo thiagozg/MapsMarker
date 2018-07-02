@@ -10,6 +10,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import br.com.mapsmarker.R
+import br.com.mapsmarker.R.id.loadingIndicator
+import br.com.mapsmarker.R.id.rvResultSearch
 import br.com.mapsmarker.base.BaseActivity
 import br.com.mapsmarker.base.UiListeners
 import br.com.mapsmarker.base.closeKeyboard
@@ -62,7 +64,7 @@ class HomeActivity(override val layoutResId: Int = R.layout.activity_home) :
                         STATUS_API_OK -> adapter?.refreshLocationList(response.data.results)
                         STATUS_API_OVER_QUERY_LIMIT ->
                             Toast.makeText(this,
-                                    response.data.errorMessage.substring(IntRange(0, 56)),
+                                    response.data.errorMessage,
                                     Toast.LENGTH_LONG).show()
                         else -> adapter?.refreshLocationList(hasNoResults = true)
                     }

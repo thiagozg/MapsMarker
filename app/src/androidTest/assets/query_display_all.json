@@ -1,0 +1,133 @@
+{
+  "results" : [
+    {
+      "address_components" : [
+        {
+          "long_name" : "666",
+          "short_name" : "666",
+          "types" : [ "street_number" ]
+        },
+        {
+          "long_name" : "O'Farrell Street",
+          "short_name" : "O'Farrell St",
+          "types" : [ "route" ]
+        },
+        {
+          "long_name" : "Tenderloin",
+          "short_name" : "Tenderloin",
+          "types" : [ "neighborhood", "political" ]
+        },
+        {
+          "long_name" : "San Francisco",
+          "short_name" : "SF",
+          "types" : [ "locality", "political" ]
+        },
+        {
+          "long_name" : "San Francisco County",
+          "short_name" : "San Francisco County",
+          "types" : [ "administrative_area_level_2", "political" ]
+        },
+        {
+          "long_name" : "California",
+          "short_name" : "CA",
+          "types" : [ "administrative_area_level_1", "political" ]
+        },
+        {
+          "long_name" : "Estados Unidos",
+          "short_name" : "US",
+          "types" : [ "country", "political" ]
+        },
+        {
+          "long_name" : "94109",
+          "short_name" : "94109",
+          "types" : [ "postal_code" ]
+        }
+      ],
+      "formatted_address" : "666 O'Farrell St, San Francisco, CA 94109, EUA",
+      "geometry" : {
+        "location" : {
+          "lat" : 37.7857489,
+          "lng" : -122.4158677
+        },
+        "location_type" : "ROOFTOP",
+        "viewport" : {
+          "northeast" : {
+            "lat" : 37.7870978802915,
+            "lng" : -122.4145187197085
+          },
+          "southwest" : {
+            "lat" : 37.78439991970851,
+            "lng" : -122.4172166802915
+          }
+        }
+      },
+      "place_id" : "ChIJwYi7CJGAhYARRSZbe-obWGI",
+      "types" : [ "establishment", "point_of_interest" ]
+    },
+    {
+      "address_components" : [
+        {
+          "long_name" : "1400",
+          "short_name" : "1400",
+          "types" : [ "street_number" ]
+        },
+        {
+          "long_name" : "East 9 Mile Road",
+          "short_name" : "E Nine Mile Rd",
+          "types" : [ "route" ]
+        },
+        {
+          "long_name" : "Highland Springs",
+          "short_name" : "Highland Springs",
+          "types" : [ "locality", "political" ]
+        },
+        {
+          "long_name" : "Varina",
+          "short_name" : "Varina",
+          "types" : [ "administrative_area_level_3", "political" ]
+        },
+        {
+          "long_name" : "Henrico County",
+          "short_name" : "Henrico County",
+          "types" : [ "administrative_area_level_2", "political" ]
+        },
+        {
+          "long_name" : "Virginia",
+          "short_name" : "VA",
+          "types" : [ "administrative_area_level_1", "political" ]
+        },
+        {
+          "long_name" : "Estados Unidos",
+          "short_name" : "US",
+          "types" : [ "country", "political" ]
+        },
+        {
+          "long_name" : "23075",
+          "short_name" : "23075",
+          "types" : [ "postal_code" ]
+        }
+      ],
+      "formatted_address" : "1400 E Nine Mile Rd, Highland Springs, VA 23075, EUA",
+      "geometry" : {
+        "location" : {
+          "lat" : 37.5360459,
+          "lng" : -77.31773099999999
+        },
+        "location_type" : "ROOFTOP",
+        "viewport" : {
+          "northeast" : {
+            "lat" : 37.53739488029149,
+            "lng" : -77.31638201970848
+          },
+          "southwest" : {
+            "lat" : 37.53469691970849,
+            "lng" : -77.31907998029151
+          }
+        }
+      },
+      "place_id" : "ChIJe5PZa9sbsYkRjIEFzrLg3Mk",
+      "types" : [ "establishment", "point_of_interest" ]
+    }
+  ],
+  "status" : "OK"
+}
