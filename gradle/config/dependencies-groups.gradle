@@ -65,16 +65,17 @@ ext {
         testImplementation "android.arch.core:core-testing:$versions.architecture"
 
         testImplementation "org.mockito:mockito-core:$versions.mockito"
-        testImplementation ('com.nhaarman:mockito-kotlin-kt1.1:1.5.0') {
+        testImplementation ("com.nhaarman:mockito-kotlin-kt1.1:$versions.mockitoExtensions") {
             exclude group: 'org.jetbrains.kotlin'
         }
 
-        testImplementation 'com.github.Plastix.RxSchedulerRule:rx2:1.0.2'
+        testImplementation "com.github.Plastix.RxSchedulerRule:rx2:$versions.rxSchedulerRule"
     }
 
     instrumentedTest = Group {
         androidTestImplementation "com.android.support.test:runner:$versions.testRunner"
         androidTestImplementation "com.android.support.test:rules:$versions.testRunner"
+        androidTestImplementation "com.android.support.test.uiautomator:uiautomator-v18:$versions.uiAutomator"
         androidTestImplementation ("com.android.support.test.espresso:espresso-core:$versions.espresso") {
             exclude group: 'javax.inject', module: 'javax.inject'
             exclude group: 'com.squareup', module: 'javawriter'
@@ -84,8 +85,6 @@ ext {
         androidTestImplementation "com.squareup.retrofit2:retrofit-mock:$versions.retrofit"
         androidTestImplementation "com.squareup.okhttp3:mockwebserver:$versions.okHttp"
         androidTestImplementation "com.squareup.spoon:spoon-client:$versions.spoon"
-
-        // androidTestImplementation "android.arch.persistence.room:testing:$versions.room"
 
         kaptAndroidTest "com.google.dagger:dagger-compiler:$versions.dagger"
         kaptAndroidTest "com.google.dagger:dagger-android-processor:$versions.dagger"

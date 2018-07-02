@@ -95,7 +95,7 @@ class HomeActivityTest {
             typeOnSearchTab("limit")
         }
         assert {
-            checkToastLimitDisplayed(activityRule.activity)
+            checkToastLimitShowed(activityRule.activity)
         }
     }
 

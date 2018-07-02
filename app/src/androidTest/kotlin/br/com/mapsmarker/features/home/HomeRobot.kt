@@ -1,7 +1,8 @@
 package br.com.mapsmarker.features.home
 
 import android.support.test.InstrumentationRegistry.getInstrumentation
-import android.support.test.espresso.action.ViewActions.*
+import android.support.test.espresso.action.ViewActions.pressKey
+import android.support.test.espresso.action.ViewActions.typeText
 import android.support.test.rule.ActivityTestRule
 import android.view.KeyEvent
 import android.widget.EditText
@@ -20,7 +21,7 @@ class HomeArrangeRobot {
 }
 
 class HomeActRobot {
-    fun clickOnSearchIcon() = viewBy(R.id.action_search).perform(click())
+    fun clickOnSearchIcon() = viewBy(R.id.action_search).click()
 
     fun typeOnSearchTab(value: String) = viewBy(EditText::class.java)
             .perform(typeText(value), pressKey(KeyEvent.KEYCODE_ENTER))
@@ -43,7 +44,7 @@ class HomeAssertRobot {
 
     fun checkLoadingProgressDisplayed() = viewBy(R.id.loadingIndicator).isDisplayed()
 
-    fun checkToastLimitDisplayed(activity: HomeActivity) =
+    fun checkToastLimitShowed(activity: HomeActivity) =
             viewBy("You have exceeded your rate-limit for this API.")
                     .onScreen(activity)
                     .isDisplayed()

@@ -18,7 +18,7 @@ class LocationDaoTest {
     protected lateinit var locationDatabase: LocationDatabase
 
     @Before
-    fun initDb() {
+    fun setUp() {
         locationDatabase = Room.inMemoryDatabaseBuilder(
                 InstrumentationRegistry.getContext(),
                 LocationDatabase::class.java)
@@ -26,7 +26,7 @@ class LocationDaoTest {
     }
 
     @After
-    fun closeDb() = locationDatabase.close() 
+    fun tearDown() = locationDatabase.close()
     
     @Test
     fun insertLocationTest() {
