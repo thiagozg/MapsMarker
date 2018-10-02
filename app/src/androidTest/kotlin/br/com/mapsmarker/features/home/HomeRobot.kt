@@ -40,7 +40,10 @@ class HomeAssertRobot {
         viewBy("No Results").isDisplayed()
     }
 
-    fun checkItemDisplayAllDisplayed() = viewBy("Display All on Map").isDisplayed()
+    fun checkItemDisplayAllDisplayed() {
+        sleep(200L)
+        viewBy("Display All on Map").isDisplayed()
+    }
 
     fun checkLoadingProgressDisplayed() = viewBy(R.id.loadingIndicator).isDisplayed()
 

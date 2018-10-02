@@ -3,6 +3,7 @@ package br.com.mapsmarker.features.maps
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import br.com.mapsmarker.features.map.MapsActivity
+import br.com.mapsmarker.sleep
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -10,7 +11,11 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MapsActivityTest {
 
+    // ./gradlew clean createDebugAndroidTestCoverageReport jacocoTestReport
+
     @get:Rule val activityRule = ActivityTestRule(MapsActivity::class.java, false, false)
+
+    val LOCATION_DATA_HASH = "ChIJvwJwLkfewFQR1j9KnOnbNgU"
 
     @Test
     fun checkTitleChangedWhenClicked() {
@@ -29,10 +34,11 @@ class MapsActivityTest {
     fun checkActionSaveSucceeded() {
         arrange(activityRule) {
             startMapsActivity()
-            removeLocationFromDatabase("ChIJvwJwLkfewFQR1j9KnOnbNgU")
+            removeLocationFromDatabase(LOCATION_DATA_HASH)
         }
         act {
             clickOnMarker()
+            sleep(500L)
             clickOnSaveActionIcon()
         }
         assert {
@@ -45,7 +51,7 @@ class MapsActivityTest {
     fun checkActionDeleteSucceeded() {
         arrange(activityRule) {
             startMapsActivity()
-            saveLocationFromDatabase("ChIJvwJwLkfewFQR1j9KnOnbNgU")
+            saveLocationFromDatabase(LOCATION_DATA_HASH)
         }
         act {
             clickOnMarker()
