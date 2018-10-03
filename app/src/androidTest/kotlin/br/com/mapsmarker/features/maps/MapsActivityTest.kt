@@ -11,8 +11,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class MapsActivityTest {
 
-    // ./gradlew clean createDebugAndroidTestCoverageReport jacocoTestReport
-
     @get:Rule val activityRule = ActivityTestRule(MapsActivity::class.java, false, false)
 
     val LOCATION_DATA_HASH = "ChIJvwJwLkfewFQR1j9KnOnbNgU"

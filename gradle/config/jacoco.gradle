@@ -20,19 +20,16 @@ task jacocoTestReport(type: JacocoReport, dependsOn: "testDebugUnitTest") {
                       '**/BuildConfig.*',
                       '**/Manifest*.*',
                       'android/**/*.*',
-                      '**/Lambda$*.class', //Retrolambda
-                      '**/Lambda.class',
-                      '**/*Lambda.class',
-                      '**/*Lambda*.class',
-                      '**/*Lambda*.*',
                       '**/*Builder.*',
-                      '**/*_MembersInjector.class',  //Dagger2 generated code
-                      '**/*_MembersInjector*.*',  //Dagger2 generated code
-                      '**/*_*Factory*.*', //Dagger2 generated code
-                      '**/*Component*.*', //Dagger2 generated code
-                      '**/*Module*.*', //Dagger2 generated code
-                      '**/*Parcelable*.class', //Parcelable generated code
-                      '**/*Parcelable*.*' //Parcelable generated code
+                      '**/*_MembersInjector.class',  // Dagger2 generated code
+                      '**/*_MembersInjector*.*',  // Dagger2 generated code
+                      '**/*_*Factory*.*', // Dagger2 generated code
+                      '**/*Component*.*', // Dagger2 generated code
+                      '**/*Module*.*', // Dagger2 generated code
+                      '**/*Parcelable*.class', // Parcel generated code
+                      '**/*Parcelable*.*', // Parcel generated code
+					  '**/model/domain/*.*', // Room generated code
+					  '**/model/data/*.*', // Model without logic
     ]
     def debugTree = fileTree(dir: "${buildDir}/intermediates/classes/debug", excludes: fileFilter)
     def kotlinDebugTree = fileTree(dir: "${buildDir}/tmp/kotlin-classes/debug", excludes: fileFilter)

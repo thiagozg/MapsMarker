@@ -36,12 +36,12 @@ class HomeAssertRobot {
     }
 
     fun checkItemNoResultsDisplayed() {
-        sleep(200L)
+        sleep(500L)
         viewBy("No Results").isDisplayed()
     }
 
     fun checkItemDisplayAllDisplayed() {
-        sleep(200L)
+        sleep(500L)
         viewBy("Display All on Map").isDisplayed()
     }
 
